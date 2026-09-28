@@ -26,12 +26,14 @@ Sindre bruker «Logg inn» nederst på galleriets hovedside. Innloggingen er dis
 
 Det er opprettet en egen e-postbruker hos Domeneshop. Den er adskilt fra de vanlige postkassene og påvirker ikke `post@atsolution.no` eller `sindre@atsolution.no`.
 
-- Avsender: `auth@atsolution.no`, navn `AT Solutions`.
-- SMTP-innloggingen mot `smtp.domeneshop.no` er kontrollert lokalt og virker, men Domeneshop avviser utsendelser fra Supabases AWS-adresser med `ACR04`. Denne postkassen kan derfor ikke brukes direkte som Supabase-relé.
+- Domeneshop-postkassen `auth@atsolution.no` brukes til eierskap og administrasjon av den separate Resend-kontoen.
+- Autentiseringsmail sendes som `AT Solutions <innlogging@auth.atsolution.no>` gjennom Resend. Resend-kontoen er opprettet kun for AT Solutions og deler ikke domener, nøkler eller prosjekter med andre løsninger.
+- Avsenderdomenet `auth.atsolution.no` er verifisert med egne DKIM-, SPF- og return-path-poster hos Domeneshop. Postene ligger på underdomenet og endrer ikke MX-oppsettet eller vanlig e-post for `atsolution.no`.
+- API-nøkkelen har bare sendingstilgang og er lagret kryptert som SMTP-passord hos Supabase. Selve nøkkelen skal ikke legges i Git eller lokale dokumentasjonsfiler.
 - Norske maler er satt for førstegangsinnlogging og passordgjenoppretting. Begge bruker Supabases engangslenke.
 - Serveren og klienten krever minst 12 tegn i passordet.
-- Resend ble ikke tatt i bruk. Eksisterende Resend-domener, nøkler, webhooks og prosjekter ble ikke endret.
-- Forhåndsvisningen er aktivert for testing. Produksjonsvariablene er satt tilbake til `false`, slik at innloggingen viser en rolig «snart klar»-tilstand fremfor en feil, fram til et kompatibelt transaksjonelt SMTP-relé er koblet til.
+- En faktisk førstegangslenke til `sindre_aamodt@hotmail.com` ble sendt etter at domenet var verifisert, og Resend bekreftet status `Delivered`.
+- Produksjonsvariablene `GALLERY_ENABLED` og `GALLERY_AUTH_READY` er aktivert. Administrasjonen er tilgjengelig fra den diskrete lenken nederst på gallerisiden.
 
 ## Miljøvariabler
 
@@ -59,6 +61,8 @@ node --env-file=.env.local scripts/check-live-auth.mjs
 ```
 
 Disse testene oppretter engangskontoer og testjobber i AT Solutions-prosjektet, og fjerner sine egne data i `finally`. Ingen e-post sendes. Kontroller eventuell opprydding hvis prosessen avbrytes uten at `finally` kjøres. Det er ikke tilstrekkelig å bestå disse testene for å bekrefte faktisk e-postlevering.
+
+Produksjonsoppsettet ble i tillegg kontrollert ved å sende Sindres førstegangslenke gjennom Supabase/Resend, kontrollere HTTP 200 og leveringsstatus `Delivered`, samt ved å åpne den publiserte administrasjonssiden og bekrefte at innloggingsskjemaet lastes.
 
 Lokal UI-fixture: bygg først, kjør `node tests/preview-server.mjs`, åpne `http://127.0.0.1:4174/admin/`. Bruker og passord er fiktive; den gule testmarkeringen gjør det tydelig at dette ikke er produksjon.
 
