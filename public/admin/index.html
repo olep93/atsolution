@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#102b3b">
+  <title>Administrasjon | AT Solutions</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/gallery.css">
+  <script type="module" src="/assets/admin.js"></script>
+</head>
+<body class="page-admin">
+  <a class="skip-link" href="#innhold">Hopp til innhold</a>
+  <header class="admin-header"><div class="wrap admin-header-inner">
+    <a class="brand" href="/" aria-label="AT Solutions – hjem"><img src="/logo.jpg" width="409" height="104" alt="AT Solution"></a>
+    <nav aria-label="Administrasjon"><a href="/galleri/">Vis galleriet</a><button type="button" class="plain-button" id="logout" hidden>Logg ut</button></nav>
+  </div></header>
+  <main id="innhold" class="wrap admin-main">
+    <p id="status" class="status-message" role="status" aria-live="polite" tabindex="-1"></p>
+    <section id="unavailable" class="auth-panel" hidden>
+      <p class="eyebrow">Administrasjon</p><h1>Snart klart.</h1>
+      <p>Innloggingen er ikke aktivert ennå. Galleriet åpnes for redigering når oppsettet er ferdig.</p>
+      <a class="text-link" href="/galleri/">Tilbake til galleriet</a>
+    </section>
+    <section id="login-panel" class="auth-panel" hidden>
+      <p class="eyebrow">AT Solutions · Administrasjon</p><h1>Logg inn.</h1>
+      <p>For deg som administrerer jobber og bilder.</p>
+      <form id="login-form"><fieldset>
+        <label for="email">E-post</label><input id="email" name="email" type="email" autocomplete="username" required maxlength="254">
+        <label for="password">Passord</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+        <label class="checkbox-label"><input type="checkbox" data-show-password="password">Vis passord</label>
+        <button class="button" type="submit">Logg inn</button>
+      </fieldset></form>
+      <div class="auth-links"><button class="plain-button" type="button" data-auth-mode="first">Første gang?</button><button class="plain-button" type="button" data-auth-mode="reset">Glemt passord?</button></div>
+    </section>
+    <section id="recovery-panel" class="auth-panel" hidden>
+      <p class="eyebrow">Tilgang til administrasjonen</p><h1 id="recovery-title">Glemt passord?</h1>
+      <p id="recovery-help">Vi sender en lenke til e-postadressen som er registrert for administrasjonen.</p>
+      <form id="recovery-form"><fieldset>
+        <div id="recovery-email-field"><label for="recovery-email">E-post</label><input id="recovery-email" name="email" type="email" autocomplete="username" required maxlength="254"></div>
+        <button class="button" id="send-recovery" type="submit">Send lenke</button>
+      </fieldset></form>
+      <button class="plain-button" type="button" data-auth-mode="login">Tilbake til innlogging</button>
+    </section>
+    <section id="password-panel" class="auth-panel" hidden>
+      <p class="eyebrow">Sikker tilgang</p><h1>Velg ditt passord.</h1>
+      <p>Bruk minst 12 tegn. Gjerne en lang setning som er lett å huske.</p>
+      <form id="new-password-form"><fieldset>
+        <label for="new-password">Nytt passord</label><input id="new-password" name="password" type="password" autocomplete="new-password" minlength="12" required>
+        <label for="confirm-password">Gjenta passordet</label><input id="confirm-password" name="confirm" type="password" autocomplete="new-password" minlength="12" required>
+        <label class="checkbox-label"><input type="checkbox" data-show-password="new-password,confirm-password">Vis passord</label>
+        <button class="button" type="submit">Lagre passord</button>
+      </fieldset></form>
+    </section>
+    <section id="jobs-panel" hidden>
+      <div class="admin-title-row"><div><p class="eyebrow">Administrasjon</p><h1>Dine jobber.</h1></div><button class="button" id="new-job" type="button">Ny jobb</button></div>
+      <p class="admin-intro">Bygg opp galleriet med arbeid du har utført. Du kan legge til flere bilder og oppdatere teksten senere.</p>
+      <label class="checkbox-label archive-filter"><input id="show-archived" type="checkbox">Vis arkiverte jobber</label>
+      <div id="job-list" class="admin-job-list"></div>
+      <button class="plain-button" id="change-password" type="button">Endre passord</button>
+    </section>
+    <section id="editor-panel" hidden>
+      <button class="plain-button back-button" id="back-to-jobs" type="button">Tilbake til jobber</button>
+      <div class="admin-title-row"><h1 id="editor-title">Ny jobb.</h1><span id="job-state" class="state-tag">Kladd</span></div>
+      <form id="job-form"><fieldset id="job-fields">
+        <div class="editor-fields">
+          <div><label for="job-title">Tittel</label><input id="job-title" name="title" required maxlength="140" placeholder="For eksempel: Vedlikehold av løfteutstyr"></div>
+          <div><label for="job-date">Dato for jobben <span>(valgfritt)</span></label><input id="job-date" name="date" type="date" min="1900-01-01" max="2100-12-31"></div>
+          <div class="full-width"><label for="job-body">Om jobben <span>(valgfritt)</span></label><textarea id="job-body" name="body" rows="7" maxlength="20000" placeholder="Hva var oppdraget, hva ble gjort, og hva ble resultatet?"></textarea></div>
+        </div>
+        <div class="photos-heading"><div><h2>Bilder</h2><p>Det første bildet blir forsidebildet. Skriv gjerne en kort forklaring til hvert bilde.</p></div><label class="button button-secondary upload-label" for="photo-files">Legg til bilder<input id="photo-files" type="file" accept="image/jpeg,image/png,image/webp" multiple></label></div>
+        <p class="field-help">JPG, PNG eller WebP. Inntil 40 bilder per jobb og 20 MB per original. Bilder tilpasses automatisk for nettsiden. Velg bilder du har tillatelse til å publisere.</p>
+        <div id="photo-list" class="editor-photos"></div>
+        <div class="save-bar"><div id="save-note">Kladden er bare synlig for deg.</div><div class="save-actions"><button class="button button-secondary" type="submit" name="intent" value="draft" id="save-draft">Lagre kladd</button><button class="button" type="submit" name="intent" value="published" id="publish-job">Publiser jobb</button></div></div>
+      </fieldset></form>
+      <div class="editor-bottom"><a id="view-job" class="text-link" target="_blank" rel="noopener" hidden>Se publisert jobb</a><button type="button" class="plain-button" id="archive-job" hidden>Arkiver jobb</button></div>
+    </section>
+    <noscript><p>Administrasjonen trenger JavaScript for innlogging og opplasting.</p></noscript>
+  </main>
+</body>
+</html>

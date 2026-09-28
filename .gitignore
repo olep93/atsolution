@@ -1,2 +1,6 @@
 .DS_Store
 .vercel
+.env*
+node_modules/
+public/assets/
+test-results/

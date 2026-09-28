@@ -1,0 +1,6 @@
+.env*
+tests/
+docs/
+supabase/
+scripts/check-live-*.mjs
+ATsolution.jpg

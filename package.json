@@ -1,0 +1,22 @@
+{
+  "name": "atsolution",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:database": "node --test tests/database.test.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.117.2"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.3.16",
+    "esbuild": "0.25.12",
+    "postgres": "3.4.8"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
