@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://atsolution.no/sitemap.xml
