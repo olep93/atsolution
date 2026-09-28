@@ -24,14 +24,14 @@ Sindre bruker «Logg inn» nederst på galleriets hovedside. Innloggingen er dis
 
 ## E-post og aktivering
 
-Autentiseringsmail sendes gjennom en egen e-postbruker hos Domeneshop. Den er adskilt fra de vanlige postkassene og påvirker ikke `post@atsolution.no` eller `sindre@atsolution.no`.
+Det er opprettet en egen e-postbruker hos Domeneshop. Den er adskilt fra de vanlige postkassene og påvirker ikke `post@atsolution.no` eller `sindre@atsolution.no`.
 
 - Avsender: `auth@atsolution.no`, navn `AT Solutions`.
-- SMTP: `smtp.domeneshop.no`, port `587`, med en dedikert bruker og et passord som kun er lagret kryptert i Supabase og hos Domeneshop.
+- SMTP-innloggingen mot `smtp.domeneshop.no` er kontrollert lokalt og virker, men Domeneshop avviser utsendelser fra Supabases AWS-adresser med `ACR04`. Denne postkassen kan derfor ikke brukes direkte som Supabase-relé.
 - Norske maler er satt for førstegangsinnlogging og passordgjenoppretting. Begge bruker Supabases engangslenke.
 - Serveren og klienten krever minst 12 tegn i passordet.
 - Resend ble ikke tatt i bruk. Eksisterende Resend-domener, nøkler, webhooks og prosjekter ble ikke endret.
-- `GALLERY_ENABLED` og `GALLERY_AUTH_READY` er satt til `true` for produksjon og forhåndsvisning etter at SMTP-oppsettet ble verifisert.
+- Forhåndsvisningen er aktivert for testing. Produksjonsvariablene er satt tilbake til `false`, slik at innloggingen viser en rolig «snart klar»-tilstand fremfor en feil, fram til et kompatibelt transaksjonelt SMTP-relé er koblet til.
 
 ## Miljøvariabler
 

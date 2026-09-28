@@ -18,6 +18,6 @@ Installer med `pnpm install --frozen-lockfile`, kjør `pnpm test` og `pnpm build
 Lokal forhåndsvisning: `python3 -m http.server 4173 --directory public`.
 En separat lokal funksjonstest finnes i `tests/preview-server.mjs`; den har bare testdata og sendes ikke til Vercel.
 
-Vercel: Framework Preset **Other**, byggekommando `pnpm build`, Output Directory **public**. `vercel.json` overstyrer prosjektets tidligere Next.js-preset. Push til main publiseres automatisk. Autentiseringsmail sendes gjennom en egen Domeneshop-bruker tilknyttet `auth@atsolution.no`.
+Vercel: Framework Preset **Other**, byggekommando `pnpm build`, Output Directory **public**. `vercel.json` overstyrer prosjektets tidligere Next.js-preset. Push til main publiseres automatisk. En egen Domeneshop-bruker er opprettet for autentiseringsmail, men Domeneshop blokkerer Supabases AWS-adresser; produksjonsinnloggingen er derfor deaktivert til et kompatibelt SMTP-relé er koblet til.
 
 Hovedadresse: https://atsolution.no/. Øvrige domener er koblet til prosjektet i Vercel og videresendes med HTTP 308. DNS ligger hos Domeneshop. E-postoppsettet er separat og skal bevares ved senere nettsideendringer.
