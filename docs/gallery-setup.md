@@ -22,17 +22,16 @@ Sindre bruker «Logg inn» nederst på galleriets hovedside. Innloggingen er dis
 - Site URL: `https://atsolution.no/admin/`.
 - Godkjent redirect: `https://atsolution.no/admin/?set-password=1`.
 
-## Gjenstår før aktivering
+## E-post og aktivering
 
-Resend-integrasjonen via Vercel godtok vilkårene, men avviste gratisressursen med `Billing plan is disabled: free`. Ingen betalt ressurs ble opprettet. Bruker har en eksisterende Resend-konto med andre prosjekter. Bruk kun et eget avsenderdomene og en egen, begrenset nøkkel for AT Solutions; ikke endre eksisterende domener, nøkler, webhooks, avsendere eller prosjekter.
+Autentiseringsmail sendes gjennom en egen e-postbruker hos Domeneshop. Den er adskilt fra de vanlige postkassene og påvirker ikke `post@atsolution.no` eller `sindre@atsolution.no`.
 
-1. Logg inn i den eksisterende Resend-kontoen.
-2. Legg til avsenderdomenet `auth.atsolution.no` hvis det ikke finnes. Registrer kun de konkrete DNS-postene Resend viser for dette underdomenet hos Domeneshop. Ikke endre apex-MX eller annen eksisterende e-post-DNS.
-3. Opprett en separat sending-only-nøkkel, begrenset til AT Solutions-domenet. Oppbevar nøkkelen kun som en tjenestehemmelighet, aldri i kildekode eller nettleserbundler.
-4. Konfigurer custom SMTP i AT Solutions-prosjektet: `smtp.resend.com`, port `465`, bruker `resend`, passord = den dedikerte nøkkelen, avsender `innlogging@auth.atsolution.no`, navn `AT Solutions`.
-5. Bruk norske e-postmaler for Magic Link og Reset Password, behold `{{ .ConfirmationURL }}`. Sett serverens minimumspassord til 12 tegn. Kontroller e-postrate limits.
-6. Verifiser levering av førstegangslenke og gjenoppretting med en uttrykkelig autorisert mottaker. De automatiske testene sender ingen e-post.
-7. Sett `GALLERY_ENABLED=true` og `GALLERY_AUTH_READY=true` i Vercel for produksjon, bygg og verifiser publiseringen. Ingen aktivering før SMTP faktisk er klart.
+- Avsender: `auth@atsolution.no`, navn `AT Solutions`.
+- SMTP: `smtp.domeneshop.no`, port `587`, med en dedikert bruker og et passord som kun er lagret kryptert i Supabase og hos Domeneshop.
+- Norske maler er satt for førstegangsinnlogging og passordgjenoppretting. Begge bruker Supabases engangslenke.
+- Serveren og klienten krever minst 12 tegn i passordet.
+- Resend ble ikke tatt i bruk. Eksisterende Resend-domener, nøkler, webhooks og prosjekter ble ikke endret.
+- `GALLERY_ENABLED` og `GALLERY_AUTH_READY` er satt til `true` for produksjon og forhåndsvisning etter at SMTP-oppsettet ble verifisert.
 
 ## Miljøvariabler
 
