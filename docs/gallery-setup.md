@@ -69,3 +69,5 @@ Lokal UI-fixture: bygg først, kjør `node tests/preview-server.mjs`, åpne `htt
 ## Driftsbegrensninger
 
 Gratisplanenes kvoter og eventuell pausing må følges opp når arkivet får trafikk. Avtal sikkerhetskopiering av databasen og bildefilene før løsningen blir virksomhetens eneste arkiv. Ikke lagre kundens eneste originalbilder her.
+
+Vercel kjører `/api/keepalive` én gang daglig. Endepunktet godtar bare Vercels `Authorization`-header basert på produksjonsvariabelen `CRON_SECRET` og gjør tre små, skrivebeskyttede spørringer med den offentlige Supabase-nøkkelen. Jobben endrer ingen data. Den er lagt inn fordi Supabase kan pause gratisprosjekter etter en uke med lav databaseaktivitet. Vercel-loggene skal kontrolleres hvis Supabase sender et nytt pausevarsel.

@@ -54,5 +54,11 @@
   ],
   "framework": null,
   "buildCommand": "pnpm build",
-  "installCommand": "pnpm install --frozen-lockfile"
+  "installCommand": "pnpm install --frozen-lockfile",
+  "crons": [
+    {
+      "path": "/api/keepalive",
+      "schedule": "17 8 * * *"
+    }
+  ]
 }
